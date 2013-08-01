@@ -17,10 +17,11 @@
 #include "SharedUtil.h"
 
 #ifdef _WIN32
-#define snprintf _snprintf
-#include "Systime.h"
+  #define snprintf _snprintf
+  #include "Systime.h"
+  #include <WinSock2.h>
 #else
-#include <sys/time.h>
+  #include <sys/time.h>
 #endif
 
 #include <cstring>

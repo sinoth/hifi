@@ -7,6 +7,10 @@
 #include <QPalette>
 #include <QColor>
 
+#ifdef _WIN32
+  #define snprintf _snprintf
+#endif
+
 BandwidthDialog::BandwidthDialog(QWidget* parent, BandwidthMeter* model) :
     QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint),
     _model(model) {

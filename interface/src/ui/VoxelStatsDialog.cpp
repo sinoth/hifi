@@ -16,6 +16,9 @@
 
 #include "ui/VoxelStatsDialog.h"
 
+#ifdef _WIN32
+  #define snprintf _snprintf
+#endif
 
 VoxelStatsDialog::VoxelStatsDialog(QWidget* parent, VoxelSceneStats* model) :
     QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint | Qt::WindowStaysOnTopHint),

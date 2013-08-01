@@ -25,6 +25,10 @@
 
 #include "Util.h"
 
+#ifdef _WIN32
+  #define isnan _isnan
+#endif
+
 using namespace std;
 
 // no clue which versions are affected...
