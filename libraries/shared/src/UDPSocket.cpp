@@ -143,7 +143,7 @@ UDPSocket::UDPSocket(int listeningPort) : listeningPort(listeningPort), blocking
     
     // if we requested an ephemeral port, get the actual port
     if (listeningPort == 0) {
-        socklen_t addressLength = sizeof(sockaddr_in);
+        int addressLength = sizeof(sockaddr_in);
         getsockname(handle, (sockaddr*) &bind_address, &addressLength);
         listeningPort = ntohs(bind_address.sin_port);
     }
