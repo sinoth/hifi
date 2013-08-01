@@ -5,8 +5,6 @@
 //  Created by Stephen Birarda on 1/22/13.
 //  Copyright (c) 2013 High Fidelity, Inc. All rights reserved.
 //
-#ifndef _WIN32
-
 #include <cstring>
 #include <fstream>
 
@@ -852,5 +850,3 @@ bool Audio::eventuallyAnalyzePing() {
     _pingAnalysisPending = false;
     return true;
 }
-
-#endif

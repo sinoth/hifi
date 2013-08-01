@@ -22,10 +22,7 @@
 #include <NodeList.h>
 #include <PacketHeaders.h>
 
-#ifndef _WIN32
 #include "Audio.h"
-#endif
-
 #include "BandwidthMeter.h"
 #include "Camera.h"
 #include "Environment.h"
@@ -409,9 +406,7 @@ private:
     
     ParticleSystem _particleSystem;
     
-    #ifndef _WIN32
     Audio _audio;
-    #endif
     
     bool _enableNetworkThread;
     pthread_t _networkReceiveThread;
