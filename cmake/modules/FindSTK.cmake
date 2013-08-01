@@ -22,6 +22,8 @@ else (STK_LIBRARIES AND STK_INCLUDE_DIRS)
     find_library(STK_LIBRARIES libstk.a ${STK_ROOT_DIR}/lib/MacOS/)
   elseif (UNIX)
     find_library(STK_LIBRARIES libstk.a ${STK_ROOT_DIR}/lib/UNIX/)
+  elseif (WIN32)
+    find_library(STK_LIBRARIES stk.lib ${STK_ROOT_DIR}/lib/Win32/)
   endif ()
 
   if (STK_INCLUDE_DIRS AND STK_LIBRARIES)

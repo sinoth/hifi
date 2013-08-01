@@ -23,7 +23,7 @@ else (LIBVPX_LIBRARIES AND LIBVPX_INCLUDE_DIRS)
   elseif (UNIX)
     find_library(LIBVPX_LIBRARIES libvpx.a ${LIBVPX_ROOT_DIR}/lib/UNIX/)
   elseif (WIN32)
-    find_library(LIBVPX_LIBRARIES libvpx.lib ${LIBVPX_ROOT_DIR}/lib/Win32/)
+    find_library(LIBVPX_LIBRARIES vpxmt.lib ${LIBVPX_ROOT_DIR}/lib/Win32/)
   endif ()
 
   if (LIBVPX_INCLUDE_DIRS AND LIBVPX_LIBRARIES)

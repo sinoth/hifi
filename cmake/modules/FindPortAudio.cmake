@@ -22,6 +22,8 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
     find_library(PORTAUDIO_LIBRARIES libportaudio.a ${PORTAUDIO_ROOT_DIR}/lib/MacOS/)
   elseif (UNIX)
     find_library(PORTAUDIO_LIBRARIES libportaudio.a ${PORTAUDIO_ROOT_DIR}/lib/UNIX/)
+  elseif (WIN32)
+    find_library(PORTAUDIO_LIBRARIES portaudio.lib ${PORTAUDIO_ROOT_DIR}/lib/Win32/)
   endif ()
 
   if (PORTAUDIO_INCLUDE_DIRS AND PORTAUDIO_LIBRARIES)
