@@ -13,6 +13,8 @@
 #ifdef _WIN32
 #include "Syssocket.h"
 #include "Systime.h"
+#include <math.h>
+#include <float.h>
 #else
 #include <sys/time.h>
 #include <arpa/inet.h>
@@ -21,6 +23,8 @@
 
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/vector_angle.hpp>
+
+#include "InterfaceConfig.h"
 
 #include <QActionGroup>
 #include <QBoxLayout>
@@ -59,7 +63,6 @@
 #include <VoxelSceneStats.h>
 
 #include "Application.h"
-#include "InterfaceConfig.h"
 #include "LogDisplay.h"
 #include "LeapManager.h"
 #include "OculusManager.h"
@@ -211,9 +214,7 @@ Application::Application(int& argc, char** argv, timeval &startup_time) :
         _oculusTextureID(0),
         _oculusProgram(0),
         _oculusDistortionScale(1.25),
-#ifndef _WIN32
         _audio(&_audioScope, STARTUP_JITTER_SAMPLES),
-#endif
         _stopNetworkReceiveThread(false),  
         _packetCount(0),
         _packetsPerSecond(0),
@@ -2254,11 +2255,9 @@ void Application::update(float deltaTime) {
     }
 
     //  Update audio stats for procedural sounds
-    #ifndef _WIN32
     _audio.setLastAcceleration(_myAvatar.getThrust());
     _audio.setLastVelocity(_myAvatar.getVelocity());
     _audio.eventuallyAnalyzePing();
-    #endif
     
     if (TESTING_PARTICLE_SYSTEM) {
         updateParticleSystem(deltaTime);
@@ -2328,9 +2327,8 @@ void Application::updateAvatar(float deltaTime) {
     }
      
     //  Get audio loudness data from audio input device
-    #ifndef _WIN32
-        _myAvatar.getHead().setAudioLoudness(_audio.getLastInputLoudness());
-    #endif
+    _myAvatar.getHead().setAudioLoudness(_audio.getLastInputLoudness());
+
 
     // Update Avatar with latest camera and view frustum data...
     // NOTE: we get this from the view frustum, to make it simpler, since the
@@ -2742,12 +2740,10 @@ void Application::displayOverlay() {
         //  Display a single screen-size quad to 
         renderCollisionOverlay(_glWidget->width(), _glWidget->height(), _audio.getCollisionSoundMagnitude());
    
-        #ifndef _WIN32
         _audio.render(_glWidget->width(), _glWidget->height());
         if (_oscilloscopeOn->isChecked()) {
             _audioScope.render(20, _glWidget->height() - 200);
         }
-        #endif
 
        //noiseTest(_glWidget->width(), _glWidget->height());
     
