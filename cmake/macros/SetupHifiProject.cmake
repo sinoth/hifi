@@ -8,12 +8,8 @@ MACRO(SETUP_HIFI_PROJECT TARGET INCLUDE_QT)
     add_executable(${TARGET} ${TARGET_SRCS})
     
     IF (${INCLUDE_QT})
-      find_package(Qt4 REQUIRED QtCore)
-      include(${QT_USE_FILE})
-      include_directories(
-          SYSTEM
-          ${QT_QTGUI_INCLUDE_DIR}
-      )
+      find_package(Qt5Core REQUIRED)
+      qt5_use_modules(${TARGET} Core)
     ENDIF()
 
     target_link_libraries(${TARGET} ${QT_LIBRARIES})
