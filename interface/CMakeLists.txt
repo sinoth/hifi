@@ -69,7 +69,10 @@ endif (APPLE)
 
 find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtOpenGL QtWebKit QtSvg)
 include(${QT_USE_FILE})
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${QT_QTGUI_INCLUDE_DIR}")
+include_directories(
+    SYSTEM
+    ${QT_QTGUI_INCLUDE_DIR}
+)
 
 set(QUAZIP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/quazip)
 add_subdirectory(external/fervor/)
@@ -100,13 +103,17 @@ find_package(MotionDriver)
 find_package(OpenCV)
 find_package(OpenNI)
 find_package(UVCCameraControl)
-find_package(ZLIB)
+
+if (WIN32)
+  set(ZLIB_LIBRARIES ${CMAKE_CURRENT_SOURCE_DIR}/../externals/zlib/lib/Win32/z.lib)
+else (WIN32)
+  find_package(ZLIB)
+endif (WIN32)
 
 # let the source know that we have OpenNI/NITE for Kinect
 if (OPENNI_FOUND)
     add_definitions(-DHAVE_OPENNI)
     include_directories(SYSTEM ${OPENNI_INCLUDE_DIRS})
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OPENNI_INCLUDE_DIRS}")
     target_link_libraries(${TARGET_NAME} ${OPENNI_LIBRARIES})
 endif (OPENNI_FOUND)
 
@@ -128,7 +135,6 @@ include_directories(
   ${OPENCV_INCLUDE_DIRS}
 )
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OPENCV_INCLUDE_DIRS}")
 target_link_libraries(
   ${TARGET_NAME} 
   ${QT_LIBRARIES}
@@ -189,17 +195,19 @@ endif (APPLE)
 if (WIN32)
     target_link_libraries(
         ${TARGET_NAME} 
-        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/glew32.lib
-        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/freeglut.lib
-        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/pthread_lib.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/Win32/glew32.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/Win32/freeglut_static.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/glut/Release/Win32/pthread_lib.lib
         wsock32.lib
     )
+
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO")
+    set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /SAFESEH:NO")
+    set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /SAFESEH:NO")
+
+    add_definitions(-DNOMINMAX)
+    add_definitions(-D_USE_MATH_DEFINES)
 else (WIN32)
-  # link the PortAudio library
-  find_package(PortAudio REQUIRED)
-  include_directories(${PORTAUDIO_INCLUDE_DIRS})
-  target_link_libraries(${TARGET_NAME} ${PORTAUDIO_LIBRARIES})
-  
   # link required libraries on UNIX
   if (UNIX AND NOT APPLE) 
       find_package(Threads REQUIRED)
@@ -217,6 +225,11 @@ else (WIN32)
   endif (UNIX AND NOT APPLE)
 endif (WIN32)
 
+# link the PortAudio library
+find_package(PortAudio REQUIRED)
+include_directories(${PORTAUDIO_INCLUDE_DIRS})
+target_link_libraries(${TARGET_NAME} ${PORTAUDIO_LIBRARIES})
+  
 # install command for OS X bundle
 INSTALL(TARGETS ${TARGET_NAME} 
     BUNDLE DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/install COMPONENT Runtime
