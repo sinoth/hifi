@@ -72,8 +72,8 @@ static const int   PING_BUFFER_OFFSET = BUFFER_LENGTH_SAMPLES_PER_CHANNEL - PING
 inline void Audio::performIO(int16_t* inputLeft, int16_t* outputLeft, int16_t* outputRight) {
 
     NodeList* nodeList = NodeList::getInstance();
-    Application* interface = Application::getInstance();
-    Avatar* interfaceAvatar = interface->getAvatar();
+    Application* appInterface = Application::getInstance();
+    Avatar* interfaceAvatar = appInterface->getAvatar();
 
     memset(outputLeft, 0, PACKET_LENGTH_BYTES_PER_CHANNEL);
     memset(outputRight, 0, PACKET_LENGTH_BYTES_PER_CHANNEL);
@@ -159,7 +159,7 @@ inline void Audio::performIO(int16_t* inputLeft, int16_t* outputLeft, int16_t* o
                                             dataPacket,
                                             BUFFER_LENGTH_BYTES_PER_CHANNEL + leadingBytes);
 
-            interface->getBandwidthMeter()->outputStream(BandwidthMeter::AUDIO).updateValue(BUFFER_LENGTH_BYTES_PER_CHANNEL
+            appInterface->getBandwidthMeter()->outputStream(BandwidthMeter::AUDIO).updateValue(BUFFER_LENGTH_BYTES_PER_CHANNEL
                                                                                             + leadingBytes);
             
         }
