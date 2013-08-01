@@ -19,6 +19,11 @@ qt4_wrap_cpp(FERVOR_MOC_SOURCES ${FERVOR_HEADERS})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules/")
 find_package(Quazip REQUIRED)
 
+if (WIN32)
+  set(ZLIB_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../../../externals/zlib/include)
+  include_directories( ${ZLIB_INCLUDE_DIRS} )
+endif (WIN32)
+
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${QUAZIP_INCLUDE_DIRS}

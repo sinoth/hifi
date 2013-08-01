@@ -16,3 +16,7 @@ include_glm(${TARGET_NAME} ${ROOT_DIR})
 
 include(${MACRO_DIR}/LinkHifiLibrary.cmake)
 link_hifi_library(shared ${TARGET_NAME} ${ROOT_DIR})
+
+if (WIN32)
+  include_directories( ${ROOT_DIR}/externals/pthread/include )
+endif (WIN32)
