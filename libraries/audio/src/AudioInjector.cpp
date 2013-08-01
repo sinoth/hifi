@@ -77,7 +77,8 @@ void AudioInjector::injectAudio(UDPSocket* injectorSocket, sockaddr* destination
             + sizeof(_radius)
             + sizeof(_volume);
         
-        unsigned char dataPacket[(BUFFER_LENGTH_SAMPLES_PER_CHANNEL * sizeof(int16_t)) + leadingBytes];
+        unsigned char *dataPacket;
+		dataPacket = new unsigned char[(BUFFER_LENGTH_SAMPLES_PER_CHANNEL * sizeof(int16_t)) + leadingBytes];
         
         unsigned char* currentPacketPtr = dataPacket + populateTypeAndVersion(dataPacket, PACKET_TYPE_INJECT_AUDIO);
         
@@ -113,6 +114,7 @@ void AudioInjector::injectAudio(UDPSocket* injectorSocket, sockaddr* destination
             memcpy(currentPacketPtr, _audioSampleArray + i, numSamplesToCopy * sizeof(int16_t));
             
             injectorSocket->send(destinationSocket, dataPacket, sizeof(dataPacket));
+			delete[] dataPacket;
             
             int usecToSleep = usecTimestamp(&startTime) + (++nextFrame * INJECT_INTERVAL_USECS) - usecTimestampNow();
             if (usecToSleep > 0) {

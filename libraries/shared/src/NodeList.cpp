@@ -124,10 +124,12 @@ void NodeList::processNodeData(sockaddr* senderAddress, unsigned char* packetDat
             break;
         }
         case PACKET_TYPE_PING: {
-            char pingPacket[dataBytes];
+            char *pingPacket;
+			pingPacket = new char[dataBytes];
             memcpy(pingPacket, packetData, dataBytes);
             populateTypeAndVersion((unsigned char*) pingPacket, PACKET_TYPE_PING_REPLY);
             _nodeSocket.send(senderAddress, pingPacket, dataBytes);
+			delete[] pingPacket;
             break;
         }
         case PACKET_TYPE_PING_REPLY: {
@@ -150,7 +152,8 @@ void NodeList::processBulkNodeData(sockaddr *senderAddress, unsigned char *packe
         
         unsigned char* startPosition = packetData;
         unsigned char* currentPosition = startPosition + numBytesPacketHeader;
-        unsigned char packetHolder[numTotalBytes];
+        unsigned char *packetHolder;
+		packetHolder = new unsigned char[numTotalBytes];
         
         // we've already verified packet version for the bulk packet, so all head data in the packet is also up to date
         populateTypeAndVersion(packetHolder, PACKET_TYPE_HEAD_DATA);
@@ -173,6 +176,7 @@ void NodeList::processBulkNodeData(sockaddr *senderAddress, unsigned char *packe
             currentPosition += updateNodeWithData(matchingNode,
                                                   packetHolder,
                                                   numTotalBytes - (currentPosition - startPosition));
+			delete[] packetHolder;
             
         }
     }    
