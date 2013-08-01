@@ -11,12 +11,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include "UrlReader.h"
+
 #ifndef _WIN32
 // (Windows port is incomplete and the build files do not support CURL, yet)
 
 #include <curl/curl.h>
-
-#include "UrlReader.h"
 
 //
 // ATTENTION: A certain part of the implementation lives in inlined code
@@ -158,6 +158,14 @@ void UrlReader::transferEnd() {
 }
 
 #else // no-op version for incomplete Windows build:
+
+size_t const UrlReader::max_read_ahead = 100; //\/CURL_MAX_WRITE_SIZE;
+char const* const UrlReader::success                = "UrlReader: Success!";
+char const* const UrlReader::success_cached         = "UrlReader: Using local file.";
+char const* const UrlReader::error_init_failed      = "UrlReader: Initialization failed.";
+char const* const UrlReader::error_aborted          = "UrlReader: Processing error.";
+char const* const UrlReader::error_buffer_overflow  = "UrlReader: Buffer overflow.";
+char const* const UrlReader::error_leftover_input   = "UrlReader: Incomplete processing.";
 
 UrlReader::UrlReader() : _curlHandle(0l) { }
 UrlReader::~UrlReader() { }
