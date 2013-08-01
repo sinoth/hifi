@@ -16,6 +16,10 @@
 #include "world.h"
 #include <stdint.h> 
 
+#ifdef _WIN32
+  #include <WinSock2.h>
+#endif
+
 struct TouchState {
     uint16_t x, y;
     char state;

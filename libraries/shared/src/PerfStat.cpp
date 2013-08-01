@@ -16,6 +16,10 @@
 
 #include <QDebug>
 
+#ifdef _WIN32
+  #include <WinSock2.h>
+#endif
+
 #include "PerfStat.h"
 
 // Static class members initialization here!

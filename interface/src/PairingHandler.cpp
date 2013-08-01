@@ -6,7 +6,10 @@
 //  Copyright (c) 2013 High Fidelity, Inc. All rights reserved.
 //
 
-#include <arpa/inet.h>
+#ifndef _WIN32
+  #include <arpa/inet.h>
+#endif
+
 #include <string.h>
 #include <stdio.h>
 

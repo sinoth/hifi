@@ -9,10 +9,8 @@
 #ifndef __hifi__NodeList__
 #define __hifi__NodeList__
 
-#include <netinet/in.h>
 #include <stdint.h>
 #include <iterator>
-#include <unistd.h>
 
 #include <QSettings>
 
@@ -20,7 +18,11 @@
 #include "UDPSocket.h"
 
 #ifdef _WIN32
-#include "pthread.h"
+  #include <pthread.h>
+  #include <Ws2ipdef.h>
+#else
+  #include <netinet/in.h>
+  #include <unistd.h>
 #endif
 
 const int MAX_NUM_NODES = 10000;

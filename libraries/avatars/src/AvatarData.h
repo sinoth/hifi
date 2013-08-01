@@ -10,8 +10,13 @@
 #define __hifi__AvatarData__
 
 #include <string>
-#include <inttypes.h>
 #include <vector>
+
+#ifndef _WIN32
+  #include <inttypes.h>
+#endif
+
+#include <stdint.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>

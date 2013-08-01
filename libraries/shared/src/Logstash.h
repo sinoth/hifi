@@ -9,7 +9,9 @@
 #ifndef __hifi__Logstash__
 #define __hifi__Logstash__
 
-#include <netinet/in.h>
+#ifndef _WIN32
+  #include <netinet/in.h>
+#endif
 
 const int LOGSTASH_UDP_PORT = 9500;
 const char LOGSTASH_HOSTNAME[] = "graphite.highfidelity.io";

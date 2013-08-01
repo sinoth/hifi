@@ -13,9 +13,10 @@
 #include <stdint.h>
 
 #ifdef _WIN32
-#include "Syssocket.h"
+  #include "Syssocket.h"
+  #include <pthread.h>
 #else
-#include <sys/socket.h>
+  #include <sys/socket.h>
 #endif
 
 #include <QDebug>

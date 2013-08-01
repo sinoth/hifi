@@ -10,9 +10,10 @@
 #define __interface__Util__
 
 #ifdef _WIN32
-#include "Systime.h"
+  #include "Systime.h"
+  #include <WinSock2.h>
 #else
-#include <sys/time.h>
+  #include <sys/time.h>
 #endif
 
 #include <glm/glm.hpp>

@@ -20,10 +20,13 @@
 #include <errno.h>
 #include <fstream>
 #include <limits>
-#include <sys/time.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+
+#ifndef _WIN32
+  #include <sys/time.h>
+  #include <sys/socket.h>
+  #include <netinet/in.h>
+  #include <arpa/inet.h>
+#endif
 
 #include <NodeList.h>
 #include <SharedUtil.h>

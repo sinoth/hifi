@@ -8,7 +8,10 @@
 
 #include <cstring>
 #include <cstdio>
-#include <netdb.h>
+
+#ifndef _WIN32
+  #include <netdb.h>
+#endif
 
 #include "SharedUtil.h"
 #include "NodeList.h"

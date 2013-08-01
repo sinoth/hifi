@@ -11,7 +11,6 @@
 
 #include <math.h>
 #include <stdint.h>
-#include <unistd.h>
 
 #include <QDebug>
 
@@ -19,6 +18,7 @@
 #include "Systime.h"
 #else
 #include <sys/time.h>
+#include <unistd.h>
 #endif
 
 typedef unsigned char rgbColor[3];

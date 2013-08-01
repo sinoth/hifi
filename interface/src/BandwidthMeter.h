@@ -13,6 +13,9 @@
 
 #include "ui/TextRenderer.h"
 
+#ifdef _WIN32
+  #include <WinSock2.h>
+#endif
 
 class BandwidthMeter {
 
