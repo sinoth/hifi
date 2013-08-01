@@ -732,7 +732,7 @@ inline void Audio::eventuallySendRecvPing(int16_t* inputLeft, int16_t* outputLef
         for (int s = -PING_PERIOD; s < PING_PERIOD; ++s) {
             float t = float(s) / PING_PITCH;
             *outputLeft++ = *outputRight++ = int16_t(PING_VOLUME * 
-                    sinf(t) / fmaxf(1.0f, pow((abs(t)-1.5f) / 1.5f, 1.2f)));
+                    sinf(t) / std::max(1.0f, pow((abs(t)-1.5f) / 1.5f, 1.2f)));
         }
 
         // As of the next frame, we'll be recoding PING_FRAMES_TO_RECORD from 

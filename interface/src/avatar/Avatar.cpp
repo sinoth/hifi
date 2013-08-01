@@ -972,9 +972,9 @@ void Avatar::updateCollisionSound(const glm::vec3 &penetration, float deltaTime,
         //  Noise is a function of the angle of collision
         //  Duration of the sound is a function of both base frequency and velocity of impact
         Application::getInstance()->getAudio()->startCollisionSound(
-            fmin(COLLISION_LOUDNESS * velocityTowardCollision, 1.f),
+            std::min(COLLISION_LOUDNESS * velocityTowardCollision, 1.f),
             frequency * (1.f + velocityTangentToCollision / velocityTowardCollision),
-            fmin(velocityTangentToCollision / velocityTowardCollision * NOISE_SCALING, 1.f),
+            std::min(velocityTangentToCollision / velocityTowardCollision * NOISE_SCALING, 1.f),
             1.f - DURATION_SCALING * powf(frequency, 0.5f) / velocityTowardCollision);
     }
 }
