@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 High Fidelity, Inc. All rights reserved.
 //
 
-#include <sys/time.h>
+#ifndef _WIN32
+  #include <sys/time.h>
+#endif
 
 #include "SharedUtil.h"
 #include "NodeList.h"
@@ -78,6 +80,7 @@ void* AudioInjectionManager::injectAudioViaThread(void* args) {
     }
     
     pthread_exit(0);
+	return NULL;
 }
 
 void AudioInjectionManager::threadInjector(AudioInjector* injector) {
