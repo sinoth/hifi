@@ -9,7 +9,10 @@ MACRO(SETUP_HIFI_LIBRARY TARGET)
     
     find_package(Qt4 REQUIRED QtCore)
     include(${QT_USE_FILE})
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${QT_QTGUI_INCLUDE_DIR}")
+    include_directories(
+        SYSTEM
+        ${QT_QTGUI_INCLUDE_DIR}
+    )
 
     target_link_libraries(${TARGET} ${QT_LIBRARIES})
 ENDMACRO(SETUP_HIFI_LIBRARY _target)
