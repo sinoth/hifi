@@ -2923,8 +2923,8 @@ void Application::displayStats() {
     
     if (avatarMixer) {
         sprintf(avatarMixerStats, "Avatar Mixer: %.f kbps, %.f pps",
-                roundf(avatarMixer->getAverageKilobitsPerSecond()),
-                roundf(avatarMixer->getAveragePacketsPerSecond()));
+                floorf(avatarMixer->getAverageKilobitsPerSecond()+0.5f), 
+                floorf(avatarMixer->getAveragePacketsPerSecond()+0.5f));
     } else {
         sprintf(avatarMixerStats, "No Avatar Mixer");
     }

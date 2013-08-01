@@ -136,7 +136,7 @@ void Webcam::renderPreview(int screenWidth, int screenHeight) {
         
         const int MAX_FPS_CHARACTERS = 30;
         char fps[MAX_FPS_CHARACTERS];
-        sprintf(fps, "FPS: %d", (int)(roundf(_frameCount * 1000000.0f / (usecTimestampNow() - _startTimestamp))));
+        sprintf(fps, "FPS: %d", (int)(floorf(_frameCount * 1000000.0f / (usecTimestampNow() - _startTimestamp)+0.5f)));
         drawtext(left, top + PREVIEW_HEIGHT + 20, 0.10, 0, 1, 0, fps);
     }
 }
