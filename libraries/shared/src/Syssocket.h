@@ -11,7 +11,7 @@ typedef SSIZE_T ssize_t;
 typedef ULONG32 in_addr_t; 
 typedef USHORT in_port_t;
 typedef USHORT uint16_t;
-typedef ULONG32 socklen_t;
+//typedef ULONG32 socklen_t;
 
 #endif _Win32
 
