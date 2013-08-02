@@ -20,6 +20,7 @@
 
 #ifdef _WIN32
 #include "Syssocket.h"
+#include <Ws2tcpip.h>
 #else
 #include <arpa/inet.h>
 #endif
@@ -359,7 +360,7 @@ int NodeList::processDomainServerList(unsigned char* packetData, size_t dataByte
         // if the public socket address is 0 then it's reachable at the same IP
         // as the domain server
         if (nodePublicSocket.sin_addr.s_addr == 0) {
-            inet_aton(_domainIP, &nodePublicSocket.sin_addr);
+            inet_pton(AF_INET, _domainIP, &nodePublicSocket.sin_addr);
         }
         
         addOrUpdateNode((sockaddr*) &nodePublicSocket, (sockaddr*) &nodeLocalSocket, nodeType, nodeId);
